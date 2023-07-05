@@ -23,17 +23,17 @@ GPIO02------Signal/A0
 */
 
 
-#define HUMIDITY_SENSOR 2 // sensor is connected to GPIO2
+#define HUMIDITY_SENSOR 2 // El sensor está conectado al GPIO2
 
 void setup() {
-  Serial.begin(115200); // start serial communication at 9600 bps
-  pinMode(HUMIDITY_SENSOR, INPUT);
+  Serial.begin(115200); // Inicia la comunicación serial a 115200 bps
+  pinMode(HUMIDITY_SENSOR, INPUT); // Configura el pin del sensor de humedad como entrada
 }
 
 void loop() {
-  int humiditySensor = analogRead(HUMIDITY_SENSOR); // read the input on analog pin 2
-  Serial.println(humiditySensor); // print the value to the serial monitor
-  delay(1000); // delay for a second so we have time to see the result
+  int humiditySensor = analogRead(HUMIDITY_SENSOR); // Lee la entrada en el pin analógico 2
+  Serial.println(humiditySensor); // Imprime el valor al monitor serial
+  delay(1000); // Espera un segundo para que tengamos tiempo de ver el resultado
 }
 
 
