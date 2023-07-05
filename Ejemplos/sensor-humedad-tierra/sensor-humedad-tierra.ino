@@ -31,7 +31,7 @@ void setup() {
 }
 
 void loop() {
-  int sensorValue = analogRead(SENSOR_PIN); // read the input on analog pin 2
+  int humiditySensor = analogRead(SENSOR_PIN); // read the input on analog pin 2
   Serial.println(sensorValue); // print the value to the serial monitor
   delay(1000); // delay for a second so we have time to see the result
 }
