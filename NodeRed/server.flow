@@ -1,0 +1,501 @@
+[
+    {
+        "id": "269aed2657ea47ac",
+        "type": "tab",
+        "label": "Flow 7",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c3cf370a463dba33",
+        "type": "mqtt in",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "topic": "codigoiot/esp32/humedadTierra",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "1cf4394e3811019a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "e60f2ee6897abf61"
+            ]
+        ]
+    },
+    {
+        "id": "ab316d9bab597e0b",
+        "type": "mqtt in",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "topic": "codigoiot/esp32/nivelAgua",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "1cf4394e3811019a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "4b4a4a5ffd81a1bd"
+            ]
+        ]
+    },
+    {
+        "id": "cff8c78da01aa680",
+        "type": "mqtt in",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "topic": "codigoiot/esp32/flujoAgua",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "1cf4394e3811019a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 220,
+        "wires": [
+            [
+                "2ee77a5a08f52e47"
+            ]
+        ]
+    },
+    {
+        "id": "fda6596e5dc9a153",
+        "type": "comment",
+        "z": "269aed2657ea47ac",
+        "name": "Receptor",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "e60f2ee6897abf61",
+        "type": "function",
+        "z": "269aed2657ea47ac",
+        "name": "Humedad de Tierra",
+        "func": "var input = msg.payload; // Suponemos que el número en el rango de 0 a 4095 se recibe como payload del mensaje\nvar output = (input / 4095) * 100; // Transforma el número al rango 0-100\n\nmsg.payload = output; // Reemplaza el payload del mensaje con el nuevo valor transformado\n\nglobal.set (\"humedadTierra\", msg.payload); // Genera una nueva variable global con el valor calculado\nmsg.topic = \"Humedad de Tierra\"; // Diferenciador para la grafica\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [
+                "407b1307bd2e89f8",
+                "5b202bdf05fdb4bc"
+            ]
+        ]
+    },
+    {
+        "id": "4b4a4a5ffd81a1bd",
+        "type": "function",
+        "z": "269aed2657ea47ac",
+        "name": "Nivel de Agua",
+        "func": "var input = msg.payload; // Suponemos que el número en el rango de 0 a 4095 se recibe como payload del mensaje\nvar output = (input / 4095) * 100; // Transforma el número al rango 0-100\n\nmsg.payload = output; // Reemplaza el payload del mensaje con el nuevo valor transformado\n\nglobal.set(\"nivelAgua\", msg.payload); // Genera una nueva variable global con el valor calculado\nmsg.topic = \"Nivel de Agua\"; // Diferenciador para la grafica\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 160,
+        "wires": [
+            [
+                "2fb55970364edd25",
+                "5b202bdf05fdb4bc"
+            ]
+        ]
+    },
+    {
+        "id": "2ee77a5a08f52e47",
+        "type": "function",
+        "z": "269aed2657ea47ac",
+        "name": "Flujo de Agua",
+        "func": "global.set(\"flujoAgua\", msg.payload); // Genera una variable global para este valor\nmsg.topic = \"Flujo de Agua\"; // Diferenciador para la grafica\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "3cc194c47f17a3b0",
+                "5b202bdf05fdb4bc"
+            ]
+        ]
+    },
+    {
+        "id": "407b1307bd2e89f8",
+        "type": "ui_gauge",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "group": "208be2acbe73eb51",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Humedad de Tierra",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#77767b",
+            "#00b500",
+            "#1a5fb4"
+        ],
+        "seg1": "20",
+        "seg2": "80",
+        "diff": false,
+        "className": "",
+        "x": 890,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2fb55970364edd25",
+        "type": "ui_gauge",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "group": "208be2acbe73eb51",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Nivel de Agua",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#1a5fb4"
+        ],
+        "seg1": "20",
+        "seg2": "80",
+        "diff": false,
+        "className": "",
+        "x": 880,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3cc194c47f17a3b0",
+        "type": "ui_gauge",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "group": "208be2acbe73eb51",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Flujo de Agua",
+        "label": "L/min",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#33d17a",
+            "#00b500",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "20",
+        "diff": false,
+        "className": "",
+        "x": 880,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4a8a0611ab5b949b",
+        "type": "inject",
+        "z": "269aed2657ea47ac",
+        "name": "Una vez al día",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "45 21 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 560,
+        "wires": [
+            [
+                "8f7165ea39d008c9"
+            ]
+        ]
+    },
+    {
+        "id": "8f7165ea39d008c9",
+        "type": "function",
+        "z": "269aed2657ea47ac",
+        "name": "Activador de sales",
+        "func": "msg.payload = \"1,\" + global.get (\"bomba\") + \"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 560,
+        "wires": [
+            [
+                "48e5b24af70b5254",
+                "87891014f261dbdb"
+            ]
+        ]
+    },
+    {
+        "id": "48e5b24af70b5254",
+        "type": "mqtt out",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "topic": "codigoIoT/esp32/actuadores",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1cf4394e3811019a",
+        "x": 920,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "9c848913a28d091b",
+        "type": "comment",
+        "z": "269aed2657ea47ac",
+        "name": "Administrar sales 1 vez al dìa",
+        "info": "",
+        "x": 200,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "b0ef6035b6edacb7",
+        "type": "comment",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "info": "",
+        "x": 140,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "48a3ae9c3781a612",
+        "type": "inject",
+        "z": "269aed2657ea47ac",
+        "name": "Cron",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "ab55b54a1cbb9961",
+                "1fed2088af0fab6b"
+            ]
+        ]
+    },
+    {
+        "id": "ab55b54a1cbb9961",
+        "type": "function",
+        "z": "269aed2657ea47ac",
+        "name": "Activador de bomba",
+        "func": "if (global.get (\"humedadTierra\") < 80 && global.get (\"nivelAgua\") > 10 && global.get (\"flujoAgua\") < 10) {\n    global.set (\"bomba\", 1);\n} else {\n    global.set(\"bomba\", 0);\n}\nmsg.payload = \"0,\" + global.get (\"bomba\") + \"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 380,
+        "wires": [
+            [
+                "48e5b24af70b5254",
+                "87891014f261dbdb"
+            ]
+        ]
+    },
+    {
+        "id": "87891014f261dbdb",
+        "type": "debug",
+        "z": "269aed2657ea47ac",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "5b202bdf05fdb4bc",
+        "type": "ui_chart",
+        "z": "269aed2657ea47ac",
+        "name": "",
+        "group": "4b306fa854b54f27",
+        "order": 1,
+        "width": 14,
+        "height": 12,
+        "label": "Histórico",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 860,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1fed2088af0fab6b",
+        "type": "function",
+        "z": "269aed2657ea47ac",
+        "name": "Graficador de bomba",
+        "func": "msg.payload = 100 * global.get (\"bomba\");\nmsg.topic = \"Bomba\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "5b202bdf05fdb4bc"
+            ]
+        ]
+    },
+    {
+        "id": "1cf4394e3811019a",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "208be2acbe73eb51",
+        "type": "ui_group",
+        "name": "Indicadores",
+        "tab": "a7baf48fa557e75d",
+        "order": 1,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4b306fa854b54f27",
+        "type": "ui_group",
+        "name": "Histórico",
+        "tab": "a7baf48fa557e75d",
+        "order": 2,
+        "disp": true,
+        "width": 14,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a7baf48fa557e75d",
+        "type": "ui_tab",
+        "name": "Jardìn Hidropónico",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
