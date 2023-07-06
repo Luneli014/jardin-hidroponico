@@ -1,0 +1,356 @@
+[
+    {
+        "id": "001f6eec02ed1cd5",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e429e55c60b25bf1",
+        "type": "debug",
+        "z": "001f6eec02ed1cd5",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "135acdc33fdc7575",
+        "type": "serial in",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "serial": "08d256066ed53773",
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "444cfd9ebb77e97c"
+            ]
+        ]
+    },
+    {
+        "id": "444cfd9ebb77e97c",
+        "type": "string",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "methods": [
+            {
+                "name": "trimRight",
+                "params": []
+            },
+            {
+                "name": "split",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": ","
+                    },
+                    {
+                        "type": "num",
+                        "value": "3"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 410,
+        "y": 120,
+        "wires": [
+            [
+                "d4f1c7477260f4a9",
+                "e429e55c60b25bf1",
+                "b6107a6c68ebd094",
+                "3f409e46e24035aa"
+            ]
+        ]
+    },
+    {
+        "id": "dc78f49d3cf81250",
+        "type": "mqtt out",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "topic": "codigoiot/esp32/humedadTierra",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a396a1df56e44965",
+        "x": 970,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d4f1c7477260f4a9",
+        "type": "function",
+        "z": "001f6eec02ed1cd5",
+        "name": "Select 0",
+        "func": "msg.payload = msg.payload[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "dc78f49d3cf81250"
+            ]
+        ]
+    },
+    {
+        "id": "b6107a6c68ebd094",
+        "type": "function",
+        "z": "001f6eec02ed1cd5",
+        "name": "Select 1",
+        "func": "msg.payload = msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 180,
+        "wires": [
+            [
+                "fdf74f8e6992c901"
+            ]
+        ]
+    },
+    {
+        "id": "3f409e46e24035aa",
+        "type": "function",
+        "z": "001f6eec02ed1cd5",
+        "name": "Select 2",
+        "func": "msg.payload = msg.payload[2];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 240,
+        "wires": [
+            [
+                "7f08917a4a50a8ee"
+            ]
+        ]
+    },
+    {
+        "id": "fdf74f8e6992c901",
+        "type": "mqtt out",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "topic": "codigoiot/esp32/nivelAgua",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a396a1df56e44965",
+        "x": 950,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7f08917a4a50a8ee",
+        "type": "mqtt out",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "topic": "codigoiot/esp32/flujoAgua",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a396a1df56e44965",
+        "x": 950,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4354c4c6562350f7",
+        "type": "mqtt in",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "topic": "codigoIoT/esp32/actuadores",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a396a1df56e44965",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 420,
+        "wires": [
+            [
+                "e3483b20b265825b",
+                "83f905a40a8d504c"
+            ]
+        ]
+    },
+    {
+        "id": "83f905a40a8d504c",
+        "type": "serial out",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "serial": "08d256066ed53773",
+        "x": 650,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e3483b20b265825b",
+        "type": "debug",
+        "z": "001f6eec02ed1cd5",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "7b81cf864574d74b",
+        "type": "inject",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0,0",
+        "payloadType": "str",
+        "x": 230,
+        "y": 540,
+        "wires": [
+            [
+                "e3483b20b265825b",
+                "83f905a40a8d504c"
+            ]
+        ]
+    },
+    {
+        "id": "ce1eb8bd7280b220",
+        "type": "inject",
+        "z": "001f6eec02ed1cd5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1,1",
+        "payloadType": "str",
+        "x": 230,
+        "y": 580,
+        "wires": [
+            [
+                "e3483b20b265825b",
+                "83f905a40a8d504c"
+            ]
+        ]
+    },
+    {
+        "id": "319092b21b3126e4",
+        "type": "comment",
+        "z": "001f6eec02ed1cd5",
+        "name": "Testers",
+        "info": "",
+        "x": 170,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "08d256066ed53773",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "a396a1df56e44965",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.15.19",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
